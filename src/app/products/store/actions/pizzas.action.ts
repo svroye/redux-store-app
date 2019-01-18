@@ -16,7 +16,7 @@ export class LoadPizzasFail implements Action {
     constructor(public payload: any){}
 }
 
-export class LoadPizzasSucces implements Action {
+export class LoadPizzasSuccess implements Action {
     readonly type = LOAD_PIZZAS_SUCCESS;
 
     constructor(public payload: Pizza[]){}
@@ -24,4 +24,4 @@ export class LoadPizzasSucces implements Action {
 
 
 // action types, used in the reducers
-export type PizzasAction = LoadPizzas | LoadPizzasFail | LoadPizzasSucces;
+export type PizzasAction = LoadPizzas | LoadPizzasFail | LoadPizzasSuccess;

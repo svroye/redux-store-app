@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "json-server": "json-server --watch db.json --port 3000",
-    "ng-server": "ng serve --proxy-config proxy.conf.json"
+    "ng-serve": "ng serve --proxy-config proxy.conf.json"
   },
   "private": true,
   "dependencies": {
