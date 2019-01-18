@@ -4,7 +4,7 @@ import * as fromPizzas from '../actions/pizzas.action';
 // defines a slice of state that our reducer will manage 
 // in our entire state tree
 export interface PizzaState {
-    data: Pizza[];
+    entities: { [id: number]: Pizza}
     loaded: boolean;
     loading: boolean;
 }
@@ -12,7 +12,7 @@ export interface PizzaState {
 export const initialState: PizzaState = {
     loaded: false,
     loading: false,
-    data: []
+    entities: {}
 };
 
 
@@ -23,8 +23,15 @@ export function reducer(state = initialState, action: fromPizzas.PizzasAction): 
         }
 
         case fromPizzas.LOAD_PIZZAS_SUCCESS: {
-            const data = action.payload;
-            return { ...state, loading: false, loaded: true, data };
+            const pizzas = action.payload;
+            // {...state.entities} is the initial value
+            const entities = pizzas.reduce( (entities: { [id: number]: Pizza}, pizza: Pizza) => {
+                    return {...entities, [pizza.id]: pizza };
+                }, 
+                {...state.entities}
+            );
+
+            return { ...state, loading: false, loaded: true, entities };
         }
 
         case fromPizzas.LOAD_PIZZAS_FAIL: {
@@ -36,4 +43,4 @@ export function reducer(state = initialState, action: fromPizzas.PizzasAction): 
 
 export const getPizzasLoading = (state: PizzaState) => state.loading;
 export const getPizzasLoaded = (state: PizzaState) => state.loaded;
-export const getPizzas = (state: PizzaState) => state.data;
+export const getPizzasEntities = (state: PizzaState) => state.entities;
